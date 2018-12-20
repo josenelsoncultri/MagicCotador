@@ -1,2 +1,2 @@
 # MagicCotador
-Programa cotador de cartas de Magic
+Programa cotador de cartas de Magic.
