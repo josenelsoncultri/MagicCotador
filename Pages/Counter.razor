@@ -1,18 +1,26 @@
-﻿@page "/counter"
+﻿@using AngleSharp
+
+@page "/counter"
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p role="status">Current count: @currentCount</p>
+<p role="status">Card name: @cardName</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="@(async() => await IncrementCount())">Click me</button>
 
 @code {
-    private int currentCount = 0;
+    private string cardName = "";
+}
 
-    private void IncrementCount()
+@functions {
+    async Task IncrementCount()
     {
-        currentCount++;
+        var config = Configuration.Default.WithDefaultLoader();
+        using var context = BrowsingContext.New(config);
+        using var doc = await context.OpenAsync("https://www.ligamagic.com.br/?view=cards/card&card=platinum%20angel");
+        //cardName = doc.QuerySelector("p.nome-principal").GetAttribute("title");
+        cardName = doc.DocumentElement.QuerySelector("p.nome-principal > span").InnerHtml;
     }
 }
