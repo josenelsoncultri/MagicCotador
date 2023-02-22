@@ -33,8 +33,8 @@
         var options = new DialogOptions { CloseOnEscapeKey = false, Position = DialogPosition.Center };
 
         DialogParameters parameters = new DialogParameters();
-        int cardQuantity = _cardList.Split(@"\n").Count();
+        int cardQuantity = _cardList.Split("\n").Count();
         parameters.Add("_text", cardQuantity.ToString());
-        DialogService.Show<Dialog>("Quantidade de Cartas", options);
+        DialogService.Show<Dialog>("Quantidade de Cartas", parameters, options);
     }
 }
