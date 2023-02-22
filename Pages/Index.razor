@@ -1,3 +1,40 @@
 ﻿@page "/"
+@inject IDialogService DialogService
 
 <PageTitle>Cotador de Cartas de Magic</PageTitle>
+
+<MudTextField T="string" Label="Lista de Cartas" aria-multiline="true" Lines="20" @bind-Value="@_cardList">
+</MudTextField>
+
+<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary" OnClick="QuoteCards"
+    Disabled="@_quotatingCards">
+    @if (!_quotatingCards)
+    {
+        <MudText>Cotar :D</MudText>
+    }
+    else
+    {
+        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+        <MudText Class="ms-2">Cotando Cartas, aguarde...</MudText>
+    }
+</MudButton>
+
+@code
+{
+    private string _cardList = string.Empty;
+    private bool _quotatingCards = false;
+
+    async Task QuoteCards()
+    {
+        _quotatingCards = true;
+        await Task.Delay(5000);
+        _quotatingCards = false;
+
+        var options = new DialogOptions { CloseOnEscapeKey = false, Position = DialogPosition.Center };
+
+        DialogParameters parameters = new DialogParameters();
+        int cardQuantity = _cardList.Split(@"\n").Count();
+        parameters.Add("_text", cardQuantity.ToString());
+        DialogService.Show<Dialog>("Quantidade de Cartas", options);
+    }
+}
