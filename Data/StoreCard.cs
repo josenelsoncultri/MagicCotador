@@ -2,6 +2,6 @@ namespace MagicCotador;
 
 public class StoreCard
 {
-    public string Name { get; set; } = null!;
+    public string Store { get; set; } = string.Empty;
     public decimal Price { get; set; }
 }
