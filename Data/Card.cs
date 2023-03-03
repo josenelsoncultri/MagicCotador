@@ -3,7 +3,7 @@ namespace MagicCotador;
 public class Card
 {
     public string Name { get; init; } = string.Empty;
-    public List<StoreCard> Stores { get; set; } = null!;
+    public List<StockItem> Stock { get; set; } = null!;
 
     public Card(string _name)
     {
