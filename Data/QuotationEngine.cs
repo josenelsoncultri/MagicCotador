@@ -22,16 +22,17 @@ public class QuotationEngine
         cardName = doc.DocumentElement.QuerySelector("p.nome-principal > span").InnerHtml;
         */
 
-        for (int i = 0; i < doc.QuerySelectorAll(".estoque-linha").Count(); i++)
-        {
-            var store = doc.QuerySelectorAll(".estoque-linha")[i];
-
-            string? _storeName = store!.QuerySelector(".e-col1 img")!.GetAttribute("title");
-            decimal _cardPrice = 0; //decimal.Parse(store!.QuerySelector(".e-col1 img")!.GetAttribute("title")!.ToString().Trim());
-            //TODO: A Ligamagic renderiza os números do preço como imagens, verificar forma de contornar isso
-            //>> Ideia: renderizar uma única imagem a partir das divs dos números e tentar algum tipo de OCR
-            _returnCard.Stores.Add(new StoreCard(_storeName!, _cardPrice));
-        }
+        /*
+        
+        
+        Ideia nova:
+        1) Pegar o código da carta no site da Ligamagic
+        2) Criar um repositório de links das lojas
+        3) Com o código da Ligamagic, varrer os links das lojas buscando os dados da carta
+        4) Pegar todo o estoque da carta, verificar o menor preço com quantidade maior que zero   
+        
+        
+        */
 
         return _returnCard;
     }
